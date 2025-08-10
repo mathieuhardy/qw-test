@@ -37,7 +37,7 @@ impl Executor {
         let mut rovers = vec![];
 
         for t in tasks {
-            let rover = t.await.unwrap();
+            let rover = t.await?;
             rovers.push(rover)
         }
 

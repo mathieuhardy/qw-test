@@ -15,6 +15,9 @@ pub enum Error {
     #[error(transparent)]
     Io(#[from] std::io::Error),
 
+    #[error(transparent)]
+    TaskJoin(#[from] tokio::task::JoinError),
+
     #[error("Missing input file")]
     MissingInpputFile,
 
