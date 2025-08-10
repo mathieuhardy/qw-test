@@ -48,6 +48,7 @@ impl Rover {
         self.orientation = orientation;
     }
 
+    #[cfg(test)]
     pub fn commands(&self) -> &[Command] {
         &self.commands
     }

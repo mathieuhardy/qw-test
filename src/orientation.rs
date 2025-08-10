@@ -39,7 +39,7 @@ impl Orientation {
                 Orientation::West => Orientation::North,
             },
 
-            /// No change in the orientation because it's a forward command.
+            // No change in the orientation because it's a forward command.
             Command::Front => self.clone(),
         }
     }

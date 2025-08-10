@@ -22,6 +22,10 @@ impl Config {
         parse_content(&content)
     }
 
+    pub fn land_size(&self) -> &Size {
+        &self.land_size
+    }
+
     pub fn rovers(&self) -> &[Rover] {
         &self.rovers
     }

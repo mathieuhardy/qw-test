@@ -4,12 +4,12 @@ use crate::config::Config;
 use crate::error::Error;
 use crate::orientation::Orientation;
 use crate::position::Position;
-use crate::units::{Size, SizeUnit};
+use crate::units::Size;
 
 #[derive(Debug)]
 pub struct Cell {
     /// Check if a cell is occupied by a rover.
-    pub occupied: AtomicBool,
+    occupied: AtomicBool,
 }
 
 impl Cell {
@@ -31,9 +31,18 @@ pub struct Land {
 
 impl Land {
     pub fn from(config: &Config) -> Self {
+        let cells_count = (config.land_size().width() * config.land_size().height()) as usize;
+        let mut cells = Vec::with_capacity(cells_count);
+
+        for _ in 0..cells_count {
+            cells.push(Cell {
+                occupied: AtomicBool::new(false),
+            });
+        }
+
         Self {
-            size: Size::default(),
-            cells: vec![],
+            size: config.land_size().clone(),
+            cells,
         }
     }
 
