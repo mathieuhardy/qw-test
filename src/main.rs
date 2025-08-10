@@ -1,14 +1,18 @@
 mod command;
 mod config;
 mod error;
+mod executor;
 mod land;
 mod orientation;
 mod position;
 mod rover;
 mod units;
 
+use std::sync::Arc;
+
 use crate::config::Config;
 use crate::error::Error;
+use crate::executor::Executor;
 use crate::land::Land;
 
 fn main() -> Result<(), Error> {
@@ -25,6 +29,10 @@ fn main() -> Result<(), Error> {
 
     // Create the land based on this configuration
     let land = Land::from(&config);
+
+    // Create executor and launch the simulation
+    let executor = Executor::new(Arc::new(land), config.rovers().to_vec());
+    executor.run()?;
 
     Ok(())
 }

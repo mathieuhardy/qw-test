@@ -21,6 +21,10 @@ impl Config {
 
         parse_content(&content)
     }
+
+    pub fn rovers(&self) -> &[Rover] {
+        &self.rovers
+    }
 }
 
 fn parse_content(content: &str) -> Result<Config, Error> {
