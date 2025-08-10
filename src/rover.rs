@@ -36,6 +36,10 @@ impl Rover {
         &self.position
     }
 
+    pub fn set_position(&mut self, position: Position) {
+        self.position = position;
+    }
+
     pub fn orientation(&self) -> &Orientation {
         &self.orientation
     }

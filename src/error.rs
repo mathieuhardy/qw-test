@@ -18,6 +18,9 @@ pub enum Error {
     #[error("Missing input file")]
     MissingInpputFile,
 
+    #[error("Position is out of bounds")]
+    OutOfBounds,
+
     #[error(transparent)]
     ParseInt(#[from] std::num::ParseIntError),
 
