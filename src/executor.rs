@@ -1,4 +1,5 @@
 use std::sync::Arc;
+use tokio::task;
 
 use crate::error::Error;
 use crate::land::Land;
@@ -17,7 +18,27 @@ impl Executor {
         Executor { land, rovers }
     }
 
-    pub fn run(&self) -> Result<(), Error> {
+    pub async fn run(&self) -> Result<(), Error> {
+        let mut tasks = vec![];
+
+        // TODO: Place all rovers to their initial positions
+
+        // Start one worker per rover
+        for rover in self.rovers.clone() {
+            let t = task::spawn(rover_worker(rover));
+
+            tasks.push(t);
+        }
+
+        // Wait for all tasks to finish
+        for t in tasks {
+            t.await.unwrap();
+        }
+
         Ok(())
     }
+}
+
+async fn rover_worker(_rover: Rover) {
+    println!("Rover task started and finished");
 }

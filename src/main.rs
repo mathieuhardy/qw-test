@@ -15,7 +15,8 @@ use crate::error::Error;
 use crate::executor::Executor;
 use crate::land::Land;
 
-fn main() -> Result<(), Error> {
+#[tokio::main]
+async fn main() -> Result<(), Error> {
     // Parse command line arguments
     let args: Vec<String> = std::env::args().collect();
 
@@ -25,14 +26,13 @@ fn main() -> Result<(), Error> {
 
     // Try to parse the configuration
     let config = Config::new(&args[1])?;
-    println!("Parsed configuration: {:#?}", config);
 
     // Create the land based on this configuration
     let land = Land::from(&config);
 
     // Create executor and launch the simulation
     let executor = Executor::new(Arc::new(land), config.rovers().to_vec());
-    executor.run()?;
+    executor.run().await?;
 
     Ok(())
 }
