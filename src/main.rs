@@ -32,7 +32,17 @@ async fn main() -> Result<(), Error> {
 
     // Create executor and launch the simulation
     let executor = Executor::new(Arc::new(land), config.rovers().to_vec());
-    executor.run().await?;
+    let rovers = executor.run().await?;
+
+    for rover in rovers {
+        println!(
+            "Rover {}: Position: ({}, {}), Orientation: {:?}",
+            rover.id(),
+            rover.position().x(),
+            rover.position().y(),
+            rover.orientation()
+        );
+    }
 
     Ok(())
 }

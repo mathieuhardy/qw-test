@@ -18,7 +18,7 @@ impl Executor {
         Executor { land, rovers }
     }
 
-    pub async fn run(&self) -> Result<(), Error> {
+    pub async fn run(&self) -> Result<Vec<Rover>, Error> {
         let mut tasks = vec![];
 
         // Place all rovers to their initial positions
@@ -34,15 +34,18 @@ impl Executor {
         }
 
         // Wait for all tasks to finish
+        let mut rovers = vec![];
+
         for t in tasks {
-            t.await.unwrap();
+            let rover = t.await.unwrap();
+            rovers.push(rover)
         }
 
-        Ok(())
+        Ok(rovers)
     }
 }
 
-async fn rover_worker(land: Arc<Land>, mut rover: Rover) {
+async fn rover_worker(land: Arc<Land>, mut rover: Rover) -> Rover {
     loop {
         if let Some(command) = rover.next_command() {
             // Get orientation after executing the command (in order to see if it has changed).
@@ -78,4 +81,6 @@ async fn rover_worker(land: Arc<Land>, mut rover: Rover) {
             break;
         }
     }
+
+    rover
 }
