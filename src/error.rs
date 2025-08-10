@@ -6,6 +6,9 @@ pub enum Error {
     #[error("Invalid configuration file")]
     InvalidConfig,
 
+    #[error("Position in invalid: {0}x{1}")]
+    InvalidPosition(SizeUnit, SizeUnit),
+
     #[error("Size in invalid: {0}x{1}")]
     InvalidSize(SizeUnit, SizeUnit),
 

@@ -6,8 +6,8 @@ pub type SizeUnit = u32;
 
 #[derive(Clone, Debug, Default)]
 pub struct Size {
-    pub width: SizeUnit,
-    pub height: SizeUnit,
+    width: SizeUnit,
+    height: SizeUnit,
 }
 
 impl Size {
@@ -18,6 +18,14 @@ impl Size {
 
         Ok(Self { width, height })
     }
+
+    pub fn width(&self) -> SizeUnit {
+        self.width
+    }
+
+    pub fn height(&self) -> SizeUnit {
+        self.height
+    }
 }
 
 #[cfg(test)]
@@ -27,8 +35,8 @@ mod tests {
     #[test]
     fn test_size_creation() -> Result<(), Error> {
         let size = Size::new(5, 13)?;
-        assert_eq!(size.width, 5);
-        assert_eq!(size.height, 13);
+        assert_eq!(size.width(), 5);
+        assert_eq!(size.height(), 13);
 
         Ok(())
     }

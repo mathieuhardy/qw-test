@@ -21,7 +21,10 @@ impl Executor {
     pub async fn run(&self) -> Result<(), Error> {
         let mut tasks = vec![];
 
-        // TODO: Place all rovers to their initial positions
+        // Place all rovers to their initial positions
+        for rover in &self.rovers {
+            self.land.set_occupied(rover.position(), true);
+        }
 
         // Start one worker per rover
         for rover in self.rovers.clone() {
