@@ -1,0 +1,15 @@
+NUMBER = { ASCII_DIGIT+ }
+DIRECTION = { "N" | "E" | "S" | "W" }
+COMMAND = { "L" | "R" | "F" }
+
+config = { land ~ rovers }
+
+land = { NUMBER+ ~ " " ~ NUMBER+ ~ NEWLINE+ }
+
+rovers = { rover+ }
+
+rover = { position ~ commands }
+
+position = { NUMBER+ ~ " " ~ NUMBER+ ~ " " ~ DIRECTION ~ NEWLINE+ }
+
+commands = { COMMAND+ ~ NEWLINE? }
