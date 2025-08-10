@@ -28,7 +28,7 @@ impl Executor {
 
         // Start one worker per rover
         for rover in self.rovers.clone() {
-            let t = task::spawn(rover_worker(rover));
+            let t = task::spawn(rover_worker(self.land.clone(), rover));
 
             tasks.push(t);
         }
@@ -42,6 +42,20 @@ impl Executor {
     }
 }
 
-async fn rover_worker(_rover: Rover) {
-    println!("Rover task started and finished");
+async fn rover_worker(_land: Arc<Land>, mut rover: Rover) {
+    loop {
+        if let Some(command) = rover.next_command() {
+            // Get orientation after executing the command (in order to see if it has changed).
+            let new_orientation = rover.orientation().get_next(&command);
+
+            if *rover.orientation() != new_orientation {
+                // Simply change orientation of the rover
+                rover.set_orientation(new_orientation);
+                continue;
+            }
+        } else {
+            // We're done, congratulations!
+            break;
+        }
+    }
 }

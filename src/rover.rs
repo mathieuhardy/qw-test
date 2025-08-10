@@ -40,7 +40,21 @@ impl Rover {
         &self.orientation
     }
 
+    pub fn set_orientation(&mut self, orientation: Orientation) {
+        self.orientation = orientation;
+    }
+
     pub fn commands(&self) -> &[Command] {
         &self.commands
+    }
+
+    /// Gets the next command to be executed by the rover and advances one step.
+    pub fn next_command(&mut self) -> Option<Command> {
+        if let Some(command) = self.commands.get(self.current_command) {
+            self.current_command += 1;
+            Some(command.clone())
+        } else {
+            None
+        }
     }
 }

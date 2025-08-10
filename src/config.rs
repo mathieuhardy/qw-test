@@ -100,8 +100,8 @@ mod tests {
         let content = "5 13\n1 2 N\nLFLFLFLFF\n3 3 E\nFFRFFRFRRF";
         let config = parse_content(content)?;
 
-        assert_eq!(config.land_size.width, 5);
-        assert_eq!(config.land_size.height, 13);
+        assert_eq!(config.land_size.width(), 5);
+        assert_eq!(config.land_size.height(), 13);
         assert_eq!(config.rovers.len(), 2);
 
         assert_eq!(config.rovers[0].id(), 0);
