@@ -1,6 +1,7 @@
 use crate::config::Rule;
 use crate::units::SizeUnit;
 
+#[allow(clippy::large_enum_variant)]
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error("Invalid configuration file")]

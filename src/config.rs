@@ -32,7 +32,7 @@ impl Config {
 }
 
 fn parse_content(content: &str) -> Result<Config, Error> {
-    let mut pairs = ConfigParser::parse(Rule::config, &content)?;
+    let mut pairs = ConfigParser::parse(Rule::config, content)?;
     let config_pair = pairs.next().ok_or(Error::InvalidConfig)?;
 
     let mut config = Config::default();

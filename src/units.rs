@@ -12,7 +12,7 @@ pub struct Size {
 
 impl Size {
     pub fn new(width: SizeUnit, height: SizeUnit) -> Result<Self, Error> {
-        if width <= 0 || height <= 0 {
+        if width == 0 || height == 0 {
             return Err(Error::InvalidSize(width, height));
         }
 
